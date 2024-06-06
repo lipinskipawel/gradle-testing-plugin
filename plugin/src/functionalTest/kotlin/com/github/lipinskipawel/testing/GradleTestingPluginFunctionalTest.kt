@@ -1,10 +1,11 @@
 package com.github.lipinskipawel.testing
 
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.TaskOutcome.NO_SOURCE
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
 import kotlin.test.Test
-import kotlin.test.assertTrue
+import kotlin.test.assertEquals
 
 class GradleTestingPluginFunctionalTest {
 
@@ -21,20 +22,21 @@ class GradleTestingPluginFunctionalTest {
         buildFile.writeText(
             """
             plugins {
-                id('com.github.lipinskipawel.testing')
+                id("java")
+                id("com.github.lipinskipawel.testing")
             }
-        """.trimIndent()
+            """.trimIndent()
         )
 
         // Run the build
         val runner = GradleRunner.create()
         runner.forwardOutput()
         runner.withPluginClasspath()
-        runner.withArguments("testing")
+        runner.withArguments("testIntegration")
         runner.withProjectDir(projectDir)
         val result = runner.build()
 
         // Verify the result
-        assertTrue(result.output.contains("Hello from plugin 'testing'"))
+        assertEquals(result.task(":testIntegration")?.outcome, NO_SOURCE)
     }
 }

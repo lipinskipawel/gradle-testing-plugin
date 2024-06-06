@@ -19,6 +19,7 @@ gradlePlugin {
         id = "com.github.lipinskipawel.testing"
         implementationClass = "com.github.lipinskipawel.testing.GradleTestingPlugin"
     }
+    version = "0.1.0"
 }
 
 val functionalTestSourceSet = sourceSets.create("functionalTest") {

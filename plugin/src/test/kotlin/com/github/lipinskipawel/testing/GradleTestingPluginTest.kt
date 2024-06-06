@@ -10,9 +10,10 @@ class GradleTestingPluginTest {
     fun `plugin registers task`() {
         // Create a test project and apply the plugin
         val project = ProjectBuilder.builder().build()
+        project.plugins.apply("java")
         project.plugins.apply("com.github.lipinskipawel.testing")
 
         // Verify the result
-        assertNotNull(project.tasks.findByName("testing"))
+        assertNotNull(project.tasks.findByName("testIntegration"))
     }
 }
